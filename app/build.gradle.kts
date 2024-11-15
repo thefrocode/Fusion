@@ -67,6 +67,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation(project(":super-app-sdk"))
+    //implementation(project(":super-app-sdk"))
+    implementation("com.github.thefrocode:Fusion:Tag")
 
 }
