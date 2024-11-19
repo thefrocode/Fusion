@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "the.frocode.super_app_sdk"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24

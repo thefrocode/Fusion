@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "the.frocode.fusion"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "the.frocode.fusion"
