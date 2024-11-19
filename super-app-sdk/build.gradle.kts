@@ -52,7 +52,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
-                groupId = "the.frocode.super_app_sdk"
+                groupId = "com.github.thefrocode"
                 artifactId = "super-app-sdk"
                 version = "1.2.0"
             }
