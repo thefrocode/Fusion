@@ -45,6 +45,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.test.ext:junit-ktx:1.2.1")
 
 }
 afterEvaluate {
@@ -54,7 +55,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.thefrocode"
                 artifactId = "super-app-sdk"
-                version = "1.2.1"
+                version = "1.2.2"
             }
         }
     }
