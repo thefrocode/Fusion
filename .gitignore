@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/the/frocode/fusion/ApiClient.kt
+/app/src/main/res/raw/fusion.crt
