@@ -59,7 +59,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.thefrocode"
                 artifactId = "super-app-sdk"
-                version = "1.2.6"
+                version = "1.2.7"
             }
         }
     }

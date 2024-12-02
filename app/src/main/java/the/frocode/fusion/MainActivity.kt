@@ -58,6 +58,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("screen2") {
                             //put items in a listview
+                            //SuperApp.miniApps.groupBy { it.category_id }
                             LazyColumn {
                                 items(items=SuperApp.miniApps) {
                                     Text("Item ${it.name}")
