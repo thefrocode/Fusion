@@ -1,26 +1,18 @@
 package the.frocode.super_app_sdk
 
 import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
 import the.frocode.super_app_sdk.internals.api.MiniAppApi
-import the.frocode.super_app_sdk.internals.api.provideRetrofit
-import the.frocode.super_app_sdk.internals.models.SuperAppModel
-import retrofit2.Retrofit
 import the.frocode.super_app_sdk.internals.models.MiniAppModel
 
 object SuperApp {
     // Flag to check if SDK has been initialized
     private var isInitialized = false
 
-    // SuperAppModel holds the initialized configuration (e.g., URL for mini apps)
-    private var _superApp: SuperAppModel? = null
+    private var _name: String? = null
 
-    // Public property to access the SuperAppModel (throws exception if not initialized)
-    val superApp: SuperAppModel
-        get() = _superApp ?: throw IllegalStateException("Object is not initialized. Call initialize() first.")
+    val name: String
+        get() = _name ?: throw IllegalStateException("Object is not initialized. Call initialize() first.")
 
-    // The Retrofit instance for making network requests
-    private var retrofit: Retrofit? = null
     private var miniAppApi: MiniAppApi? = null
     private var miniAppList: List<MiniAppModel>? = null
 
@@ -35,14 +27,13 @@ object SuperApp {
      *
      * @param superApp The configuration model containing necessary data for SDK (like miniAppsUrl).
      */
-    fun initialize(superApp: SuperAppModel, okHttpClient: OkHttpClient?=null) {
+    fun initialize(name: String, miniAppApi: MiniAppApi) {
         if (isInitialized) {
             throw IllegalStateException("SuperApp is already initialized.")
         }
 
-        _superApp = superApp
-        retrofit = provideRetrofit(superApp.miniAppsUrl, okHttpClient)  // Provide Retrofit instance with the URL
-        miniAppApi = retrofit?.create(MiniAppApi::class.java)  // Create API service instance
+        _name = name
+        this.miniAppApi = miniAppApi
         isInitialized = true
         runBlocking {
             fetchMiniApps()

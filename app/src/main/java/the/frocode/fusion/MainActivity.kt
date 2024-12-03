@@ -20,8 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import the.frocode.fusion.ui.theme.FusionTheme
 import the.frocode.super_app_sdk.SuperApp
 import the.frocode.super_app_sdk.WebViewScreen
-import the.frocode.super_app_sdk.internals.models.SuperAppModel
-import the.frocode.fusion.getHttpClient
+import the.frocode.super_app_sdk.internals.api.MiniAppApi
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +30,8 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val url = "https://google.com"
                 SuperApp.initialize(
-                    SuperAppModel(
                         "Round Robin",
-                        "https://ec2-98-81-157-239.compute-1.amazonaws.com/fusion-api/"
-                    ),
-                    getHttpClient(this)
+                    ApiClient.createService(MiniAppApi::class.java)
                 )
 
                 // A surface container using the 'background' color from the theme
