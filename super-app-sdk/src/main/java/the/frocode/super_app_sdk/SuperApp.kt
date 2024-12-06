@@ -14,9 +14,9 @@ object SuperApp {
         get() = _name ?: throw IllegalStateException("Object is not initialized. Call initialize() first.")
 
     private var miniAppApi: MiniAppApi? = null
-    private var miniAppList: List<MiniAppModel>? = null
+    private var miniAppList: List<MiniApp>? = null
 
-    val miniApps: List<MiniAppModel>
+    val miniApps: List<MiniApp>
         get() {
             return miniAppList ?: throw IllegalStateException("Mini app list is not initialized.")
         }
@@ -48,13 +48,14 @@ object SuperApp {
      * @return List of mini apps.
      * @throws IllegalStateException if the SDK is not initialized.
      */
-    suspend fun fetchMiniApps(): List<MiniAppModel> {
+    suspend fun fetchMiniApps(): List<MiniApp> {
         if (!isInitialized) {
             throw IllegalStateException("SuperApp is not initialized. Call initialize() first.")
         }
 
         // Call the MiniAppApi to fetch mini apps
         miniAppList= miniAppApi?.getMiniApps() ?: throw IllegalStateException("Failed to get MiniAppApi instance.")
+        miniAppList!!.forEach { println("MiniApp: $it") }
         return miniAppList!!
     }
 
