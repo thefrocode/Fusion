@@ -1,12 +1,15 @@
 package the.frocode.super_app_sdk
 
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.runBlocking
 import the.frocode.super_app_sdk.internals.api.MiniAppApi
 import the.frocode.super_app_sdk.internals.models.MiniAppModel
 
 object SuperApp {
     // Flag to check if SDK has been initialized
-    private var isInitialized = false
+    private val _isInitialized = MutableStateFlow(false)
+    val isInitialized: StateFlow<Boolean> = _isInitialized
 
     private var _name: String? = null
 
@@ -28,13 +31,13 @@ object SuperApp {
      * @param superApp The configuration model containing necessary data for SDK (like miniAppsUrl).
      */
     fun initialize(name: String, miniAppApi: MiniAppApi) {
-        if (isInitialized) {
+        if (isInitialized.value) {
             throw IllegalStateException("SuperApp is already initialized.")
         }
 
         _name = name
         this.miniAppApi = miniAppApi
-        isInitialized = true
+        _isInitialized.value = true
         runBlocking {
             fetchMiniApps()
             println("Fetched Mini Apps: $miniApps")
@@ -49,7 +52,7 @@ object SuperApp {
      * @throws IllegalStateException if the SDK is not initialized.
      */
     suspend fun fetchMiniApps(): List<MiniApp> {
-        if (!isInitialized) {
+        if (!isInitialized.value) {
             throw IllegalStateException("SuperApp is not initialized. Call initialize() first.")
         }
 
