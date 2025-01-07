@@ -74,6 +74,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation(project(":super-app-sdk"))
-    //implementation("com.github.thefrocode:Fusion:1.2.3")
+    //implementation("com.github.thefrocode:Fusion:1.2.11")
 
 }

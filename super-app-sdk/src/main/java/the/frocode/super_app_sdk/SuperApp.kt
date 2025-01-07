@@ -7,7 +7,7 @@ import the.frocode.super_app_sdk.internals.api.MiniAppApi
 import the.frocode.super_app_sdk.internals.models.MiniAppModel
 
 object SuperApp {
-    // Flag to check if SDK has been initialized
+
     private val _isInitialized = MutableStateFlow(false)
     val isInitialized: StateFlow<Boolean> = _isInitialized
 

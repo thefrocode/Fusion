@@ -1,6 +1,7 @@
 package the.frocode.fusion
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -22,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavHost(navController = navController, startDestination = "screen1") {
+                    NavHost(navController = navController, startDestination = "screen2") {
                         composable("screen1") {
                             Column {
                                 Text("Welcome to Screen 1")
@@ -64,16 +66,18 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("screen2") {
                             //put items in a listview
-                            //SuperApp.miniApps.groupBy { it.category_id }
-                            LazyColumn {
-                                items(items=SuperApp.miniApps) {
-                                    Text("Item ${it.name} ${it.app_url}",
-                                        modifier = Modifier
-                                            .clickable {
-                                                // Handle the click event
-                                                it.openMiniApp(navController)
-                                            }
-                                                                          )
+                            val categorizedMiniapps = SuperApp.miniApps.groupBy { it.category_name }
+                            Log.i("MainActivity", "Categorized Miniapps: $categorizedMiniapps")
+
+                            Column {
+                                categorizedMiniapps.forEach { (categoryName, miniapps) ->
+                                    Text(
+                                        text = "Category: $categoryName",
+                                        modifier = Modifier.padding(vertical = 8.dp),
+                                        style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+                                    )
+                                    Text(miniapps.toString())
+                                    //MiniappsRow(miniapps = miniapps, navController = navController)
                                 }
                             }
                         }
