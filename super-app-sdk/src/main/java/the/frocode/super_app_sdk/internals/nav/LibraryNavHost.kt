@@ -31,7 +31,11 @@ fun LibraryNavHost() {
         }
         composable(Screens.WebView("/{url}").route) { backStackEntry ->
             val url = backStackEntry.arguments?.getString("url") ?: ""
-            WebViewScreen(url = url, onClose = { navController.popBackStack() })
+            WebViewScreen(url = url, "fjjfj",
+                onClose = { navController.popBackStack() },
+                onRequestConsent = {
+                navController.navigate("consent")
+            })
         }
     }
 }

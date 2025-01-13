@@ -31,6 +31,7 @@ import androidx.navigation.compose.rememberNavController
 import the.frocode.fusion.ui.theme.FusionTheme
 import the.frocode.super_app_sdk.SuperApp
 import the.frocode.super_app_sdk.WebViewScreen
+import the.frocode.super_app_sdk.internals.ConsentScreen
 import the.frocode.super_app_sdk.internals.api.MiniAppApi
 
 
@@ -46,19 +47,18 @@ class MainActivity : ComponentActivity() {
                     ApiClient.createService(MiniAppApi::class.java)
                 )
 
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavHost(navController = navController, startDestination = "screen2") {
+                    NavHost(navController = navController, startDestination = "screen1") {
                         composable("screen1") {
                             Column {
                                 Text("Welcome to Screen 1")
                                 Button(onClick = {
                                     // Navigate to webview route with URL
-                                    val url = "google.com"
-                                    navController.navigate("screen2")
+                                    val url = "daaf-41-90-181-180.ngrok-free.app"
+                                    navController.navigate("webview/${url}")
                                 }) {
                                     Text("Open WebView")
                                 }
@@ -84,7 +84,21 @@ class MainActivity : ComponentActivity() {
 
                         composable("webview/{url}") { backStackEntry ->
                             val url = backStackEntry.arguments?.getString("url") ?: ""
-                            WebViewScreen(url = url, onClose = { navController.popBackStack() })
+                            WebViewScreen(url = url, "ghg",
+                                onClose = { navController.popBackStack() },
+                                onRequestConsent = {
+                                    navController.navigate("consent")
+                            },)
+                        }
+                        composable("consent") {
+                            ConsentScreen(
+                                onCancel = {
+                                    // Handle cancel action
+                                },
+                                onLogin = {
+                                    // Handle login action
+                                }
+                            )
                         }
                     }
 
